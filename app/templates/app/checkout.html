@@ -1,0 +1,205 @@
+{%extends "app/base.html"%} {% load static%} {% block title %}Checkout{%endblock %}
+ {% block css_url %}<link
+  rel="stylesheet"
+  href="{% static 'app/css/checkout.css' %}"
+/>{% endblock %} {% block container %}
+<div class="container my-5">
+  <h2 class="fw-bold mb-4">Secure Checkout</h2>
+  <form action="#" method="POST" id="checkout-form">
+    {% csrf_token %}
+    <div class="row g-4">
+      <div class="col-md-7">
+        <div class="card p-4 shadow-sm border-0 mb-4">
+          <h4 class="fw-bold mb-3">1. Review Items</h4>
+          <hr />
+          {% for item in products %}
+          <div
+            class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-2"
+          >
+            <div class="d-flex align-items-center">
+              <img
+                src="{{ item.product.image.url }}"
+                width="60"
+                class="rounded me-3"
+              />
+              <div>
+                <h6 class="mb-0 fw-bold">{{ item.product.name }}</h6>
+                <small class="text-muted">Quantity: {{ item.quantity }}</small>
+              </div>
+            </div>
+            <span class="fw-bold">₹{{ item.total_product_price }}</span>
+          </div>
+          {% endfor %}
+
+          <div class="d-flex justify-content-between h5 fw-bold text-dark mt-3">
+            <span>Grand Total</span>
+            <span class="text-primary">₹{{ grand_total }}</span>
+          </div>
+        </div>
+
+        <div class="card p-4 shadow-sm border-0">
+          <h4 class="fw-bold mb-3">2. Payment</h4>
+          <div class="d-grid gap-3">
+            <button type="submit" id="rzp-button1" name="paymentMethod" value="Razorpay"     class="btn btn-outline-primary btn-lg py-3 fw-bold d-flex align-items-center justify-content-center shadow-sm"
+            >
+              <img
+                src="https://razorpay.com/favicon.png"
+                width="25"
+                class="me-2"
+              />
+              Pay with RazorpayPay ₹{{ grand_total }}
+            </button>
+
+            <button
+              type="submit"
+              name="paymentMethod"
+              value="PhonePe"
+              class="btn btn-primary btn-lg py-3 fw-bold d-flex align-items-center justify-content-center shadow-sm pay-phonepe"
+            >
+              <img
+                src="https://img.icons8.com/color/48/phone-pe.png"
+                width="30"
+                class="me-2"
+              />
+              Pay with PhonePe / UPI
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-5">
+        <div
+          class="card p-4 shadow-sm border-0 bg-light sticky-top custom-sticky"
+        >
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="fw-bold mb-0">3. Shipping Address</h4>
+            <a href="{% url 'address' %}" class="btn btn-sm btn-outline-dark"
+              >+ Add New</a
+            >
+          </div>
+          <hr />
+
+          <div class="address-list">
+            {% for addr in addresses %}
+            <div class="address-item mb-3">
+              <label
+                for="addr{{ addr.id }}"
+                class="address-label p-3 d-flex align-items-start bg-white shadow-sm border rounded w-100"
+              >
+                <input
+                  type="radio"
+                  name="selected_address"
+                  id="addr{{ addr.id }}"
+                  value="{{ addr.id }}"
+                  class="form-check-input mt-1 me-3 address-radio"
+                  required
+                  {%
+                  if
+                  forloop.first
+                  %}checked{%
+                  endif
+                  %}
+                />
+
+                <div class="address-info">
+                  <span
+                    class="d-block fw-bold text-dark text-uppercase small mb-1"
+                    >{{ addr.full_name }}</span
+                  >
+                  <p class="small text-muted mb-1">{{ addr.address_line }}</p>
+                  <p class="small text-muted mb-1">
+                    {{ addr.city }}, {{ addr.state }} - {{ addr.pincode }}
+                  </p>
+                  <p class="small fw-bold text-dark mt-2 mb-0">
+                    📞 {{ addr.mobile }}
+                  </p>
+                </div>
+              </label>
+            </div>
+            {% empty %}
+            <div class="text-center py-4 bg-white rounded border">
+              <p class="text-muted small">No address found!</p>
+              <a href="#" class="btn btn-sm btn-dark">Add Now</a>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+var options = {
+    "key": "{{ context.razorpay_merchant_key }}", 
+    "amount": "{{ context.razorpay_amount }}", 
+    "currency": "INR",
+    "name": "HirenShop",
+    "description": "E-commerce Purchase",
+    "order_id": "{{ context.razorpay_order_id }}", 
+    "handler": function (response){
+        
+        var selected_addressId = document.querySelector('input[name="selected_address"]:checked').value;
+
+        alert("Payment Successful!");
+        console.log(response.razorpay_payment_id);
+        console.log(response.razorpay_order_id);
+        console.log(response.razorpay_signature);
+
+        const paymentdata={
+            "razorpay_payment_id":response.razorpay_payment_id,
+            "razorpay_order_id":response.razorpay_order_id,
+            "razorpay_signature":response.razorpay_signature,
+            "address_id":selected_addressId
+        }
+
+        fetch("/payment_success/",{
+          method:"POST",
+          headers:{
+            "Content-Type":"application/json",
+            "X-CSRFToken": "{{ csrf_token }}"
+          },
+
+
+          body:JSON.stringify(paymentdata)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.status === "success") {
+              window.location.href = "/order_detail/";
+               alert("Payment Verification Success!");
+            } 
+            else {
+                alert("Payment Verification Failed!");
+            }
+        })
+        .catch(err => console.log(err)); 
+    },
+    "prefill": {
+        "name": "{{ active_user.username }}",
+        "email": "{{ active_user.email }}"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+
+var rzp1 = new Razorpay(options);
+document.getElementById('rzp-button1').onclick = function(e){
+
+    var addressChecked = document.querySelector('input[name="selected_address"]:checked')
+
+    if (!addressChecked) {
+        alert("Please select an address.");
+        e.preventDefault();
+        return;
+    }
+    rzp1.open();
+    e.preventDefault();
+}
+</script>
+
+
+{% endblock %}

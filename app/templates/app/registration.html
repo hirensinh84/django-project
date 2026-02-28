@@ -1,0 +1,66 @@
+{% extends 'app/base.html' %}
+{% load static%}
+{% block title %}Registration{% endblock %}
+{% block css_url %}<link rel="stylesheet" href="{% static 'app/css/registration.css'%}">{% endblock %}
+{% block hero %}{% endblock %}
+
+{% block container %}
+  <div class="registration-main_container">
+    <div class="registration-inner_container">
+        <div class="registration-header">
+            <h2>Create Account</h2>
+            <p>Join us today! It takes only few steps</p>
+        </div>
+        
+        <form action="#" method="POST" class="registration-form">
+            {% csrf_token %}
+            
+            {% if messages %}
+                {% for message in messages %}
+                <div class="alert {{ message.tags }}"
+                     style="color: {% if message.tags == 'error' %}red{% else %}green{% endif %}; margin-bottom: 10px;">
+                    {{ message }}
+                </div>
+                {% endfor %} 
+            {% endif %}
+
+            <div class="input-box">
+                <input type="text" id="first_name" name="first_name" required>
+                <label for="first_name"><i class="fas fa-user"></i> First Name</label>
+            </div>
+
+            <div class="input-box">
+                <input type="text" id="last_name" name="last_name" required>
+                <label for="last_name"><i class="fas fa-user"></i> Last Name</label>
+            </div>
+            
+            <div class="input-box">
+                <input type="email" id="email" name="email" required>
+                <label for="email"><i class="fas fa-envelope"></i> Email Address</label>
+            </div>
+            
+            <div class="input-box">
+                <input type="password" id="password" name="password" required>
+                <label for="password"><i class="fas fa-lock"></i> Password</label>
+            </div>
+
+            <div class="input-box">
+                <input type="password" id="confirm_password" name="confirm_password" required>
+                <label for="confirm_password"><i class="fas fa-check-double"></i> Confirm Password</label>
+            </div>
+            
+            <button type="submit" class="registration-btn">Sign Up</button>
+            
+            <div class="social-registration">
+                <p>Or sign up with</p>
+                <div class="social-btns">
+                    <a href="#"><i class="fab fa-google"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            
+            <p class="login-text">Already have an account? <a href="{% url 'login' %}">Login Here</a></p>
+        </form>
+    </div>
+</div>
+    {% endblock %}

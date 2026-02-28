@@ -1,0 +1,172 @@
+.registration-main_container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.registration-inner_container {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    transition: transform 0.3s ease;
+}
+
+.registration-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.registration-header h2 {
+    font-size: 30px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.registration-header p {
+    color: #777;
+    font-size: 14px;
+}
+
+.input-box {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    outline: none;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background: transparent;
+}
+
+.input-box label {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: #999;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    background: #fff;
+    padding: 0 5px;
+}
+
+.input-box input:focus~label,
+.input-box input:valid~label {
+    top: 0;
+    font-size: 12px;
+    color: #4facfe;
+    font-weight: 600;
+}
+
+.input-box input:focus {
+    border-color: #4facfe;
+    box-shadow: 0 0 8px rgba(79, 172, 254, 0.2);
+}
+
+.registration-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+}
+
+.registration-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(79, 172, 254, 0.6);
+}
+
+
+.social-registration {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.social-registration p {
+    font-size: 14px;
+    color: #888;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.social-registration p::before,
+.social-registration p::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 30%;
+    height: 1px;
+    background: #ddd;
+}
+
+.social-registration p::before {
+    left: 0;
+}
+
+.social-registration p::after {
+    right: 0;
+}
+
+.social-btns {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-btns a {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ddd;
+    color: #555;
+    text-decoration: none;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.social-btns a:hover {
+    background: #f8f9fa;
+    color: #4facfe;
+    border-color: #4facfe;
+}
+
+.login-text {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+}
+
+.login-text a {
+    color: #4facfe;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-text a:hover {
+    text-decoration: underline;
+}

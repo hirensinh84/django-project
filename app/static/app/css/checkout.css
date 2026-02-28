@@ -1,0 +1,52 @@
+/* Sidebar Sticky */
+.custom-sticky {
+    top: 20px;
+}
+
+/* Address Label Styling */
+.address-label {
+    cursor: pointer;
+    border: 2px solid #e9ecef !important;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Radio Button Styling */
+.address-radio {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0; /* બટન દબાઈ ન જાય તે માટે */
+}
+
+/* Hover Effect */
+.address-label:hover {
+    border-color: #ced4da !important;
+    background-color: #fcfcfc !important;
+}
+
+/* Highlight Selected Address with Black Border */
+.address-radio:checked + .address-info {
+    color: #000;
+}
+
+/* CSS rule to highlight the whole label when radio inside is checked */
+.address-item input[type="radio"]:checked + .address-label {
+    border-color: #000 !important;
+    background-color: #fff !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+}
+
+/* PhonePe Button Styling */
+.pay-phonepe {
+    background-color: #5f259f !important;
+    border: none !important;
+}
+
+.pay-phonepe:hover {
+    background-color: #4d1e82 !important;
+}
+
+/* Order Summary Image */
+.rounded {
+    border: 1px solid #eee;
+}

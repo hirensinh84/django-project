@@ -1,0 +1,100 @@
+
+body {
+    background: linear-gradient(135deg, #4e73df, #1cc88a);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+
+.profile-card {
+    background: #ffffff;
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 30px 35px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Title */
+.profile-card h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #333;
+    font-weight: 600;
+}
+
+/* Form Group */
+.form-group {
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #555;
+}
+
+.form-group input {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background-color: #f8f9fc;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+/* Readonly input style */
+.form-group input[readonly] {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+}
+
+/* Info note */
+.info-note {
+    font-size: 13px;
+    color: #888;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Back Button */
+.back-btn {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    background: #4e73df;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.3s;
+    font-weight: 500;
+}
+
+.back-btn:hover {
+    background: #2e59d9;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .profile-card {
+        margin: 30px 15px;
+        padding: 20px;
+    }
+}

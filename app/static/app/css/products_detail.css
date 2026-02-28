@@ -1,0 +1,120 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+section {
+    padding: 60px 20px;
+    background-color: #fcfcfc;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+.product_detail_container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 50px;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+}
+
+
+.product_image {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f8f8;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.product_image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.4s ease;
+}
+
+.product_image img:hover {
+    transform: scale(1.05); 
+}
+
+
+.product_info {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.product_info h1 {
+    font-size: 2.8rem;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.product_info p {
+    font-size: 1.1rem;
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.product_info p strong {
+    color: #222;
+    font-weight: 600;
+}
+
+
+.product_info p:nth-of-type(2) {
+    font-size: 2rem;
+    color: #e67e22;
+    font-weight: 700;
+    margin-top: 10px;
+}
+
+
+.product_info button {
+    width: fit-content;
+    background-color: #000; 
+    color: #fff;
+    padding: 18px 45px;
+    border: none;
+    border-radius: 50px; 
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+    letter-spacing: 1px;
+}
+
+.product_info button:hover {
+    background-color: #333;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+
+@media (max-width: 900px) {
+    .product_detail_container {
+        flex-direction: column;
+        padding: 25px;
+    }
+    
+    .product_info h1 {
+        font-size: 2rem;
+    }
+    
+    .product_image {
+        min-width: 100%;
+    }
+}

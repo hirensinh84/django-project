@@ -1,0 +1,71 @@
+{% extends 'app/base.html'%}
+{% load static%}
+{% block title %}About{% endblock %}
+{% block css_url %}<link rel="stylesheet" href="{% static 'app/css/about.css'%}">{% endblock %}
+{% block container %}
+<div class="main_container">
+    <section class="header_section">
+        <div class="header-content">
+            <h1>About <span class="brand-name">HirenShop</span></h1>
+            <p>Your ultimate destination for premium office furniture and comfort.</p>
+        </div>
+    </section>
+
+    <section class="top_main">
+        <div class="top_container">
+            <div class="about-flex">
+                <div class="about-image">
+                    <img src="{% static 'app/images/about.jpg' %}" alt="HirenShop Interior">
+                </div>
+                <div class="about-text">
+                    <span class="sub-title">Who We Are</span>
+                    <h2>Elevating Your Workspace Since 2014</h2>
+                    <p>HirenShop started with a simple vision: to make every workspace comfortable and productive. We believe that a chair is not just furniture, but a support system for your hard work.</p>
+                    <p>Located in the heart of Gujarat, we have served over 5000+ happy customers, providing them with ergonomic chairs and sturdy office tables that last a lifetime.</p>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <h3>5K+</h3>
+                            <p>Happy Clients</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>500+</h3>
+                            <p>Products</p>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+    </section>
+    <section>
+        <div class="experience-box">
+            <span>10+</span>
+            <p>Years of Excellence</p>
+        </div>  
+    </section>
+
+    <section class="bottom_section">
+        <h2 class="section-title">Why Choose Us?</h2>
+        <div class="bottom_main_section">
+            <div class="bottom-card">
+                <i class="fas fa-couch"></i>
+                <h3>Premium Quality</h3>
+                <p>We use only the finest materials to ensure durability and style.</p>
+            </div>
+            <div class="bottom-card">
+                <i class="fas fa-truck"></i>
+                <h3>Fast Delivery</h3>
+                <p>Quick and safe delivery to your doorstep across the region.</p>
+            </div>
+            <div class="bottom-card">
+                <i class="fas fa-headset"></i>
+                <h3>24/7 Support</h3>
+                <p>Our team is always here to help you with your furniture needs.</p>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

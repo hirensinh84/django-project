@@ -1,0 +1,158 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}HIRENSHOP{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- css link -->
+    <link rel="stylesheet" href="{% static 'app/css/style.css' %}" />
+    {% block css_url%}{% endblock %}
+
+    <!-- fontawesome link -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- bootstrap link -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <!---------- header start ------------>
+    <header class="header">
+      <div class="three_lin">
+        <i class="fas fa-bars"></i>
+      </div>
+      <div class="header_logo">
+        <span class="logo_left">HIREN</span><span class="logo_right">SHOP</span>
+      </div>
+      <div class="header_container">
+        <nav class="header_nav">
+          <ul class="header_list">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'product'%}">All Product</a></li>
+            <li><a href="{% url 'about'%}">About</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
+          </ul>
+        </nav>
+        <div class="header_right">
+          {% if not user.is_authenticated %}
+          <a href="{% url 'login' %}" class="btn-join login">Login</a>
+          <a href="{% url 'registration' %}" class="btn-join Registration"
+            >Registration</a
+          >
+          {% else %} 
+           <a href="{% url 'view_cart' %}" class="cart_btn"
+            ><i class="fas fa-shopping-cart me-2"></i>Cart</a>
+          {% endif %}
+        </div>
+        {% if user.is_authenticated %}
+        <div class="dropdown profile_container">
+          <button
+            class="btn dropdown-toggle p_b"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i class="fas fa-user profile_icon"></i><span>Profile</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-dark">
+            <li>
+              <a class="dropdown-item active" href="{% url 'myprofile' %}"
+                >My Profile</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'oldpass' %}"
+                >Change Password</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'address' %}"
+                >My Address</a
+              >
+            </li>
+            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <a class="dropdown-item logout_link text-danger fs-4 fw-bold" href="{% url 'logout' %}"
+                >Log out</a
+              >
+            </li>
+          </ul>
+        </div>
+          {% endif %}
+      </div>
+    </header>
+
+    <!---------- header and ------------>
+    {% block hero %}{% endblock %} {% block container %}{% endblock %}
+
+    <!------------ footer start  -------------->
+    <footer class="footer_container">
+      <div class="footer_inner_container">
+        <div class="footer_first">
+          <div class="footer_logo">
+            <span class="logo_left">HIREN</span
+            ><span class="logo_right">SHOP</span>
+          </div>
+          <p>
+            Coding simplified for everyone. We focus on quality and practical
+            knowledge to build your future.
+          </p>
+          <div class="social-icons">
+            <a href="https://www.facebook.com/login.php/" target="_blank"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a href="https://www.instagram.com/" target="_blank"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a href="https://www.linkedin.com/" target="_blank"
+              ><i class="fab fa-linkedin-in"></i
+            ></a>
+            <a href="https://www.youtube.com/" target="_blank"
+              ><i class="fab fa-youtube"></i
+            ></a>
+          </div>
+        </div>
+
+        <div class="footer_second">
+          <h3>Quick Links</h3>
+          <ul class="footer_list">
+            <li><a href="{% url 'home'%}">Home</a></li>
+            <li><a href="{% url 'product'%}">All Product</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer_third">
+          <h3>Support</h3>
+          <p><i class="fas fa-envelope"></i> help@hireninstitute.com</p>
+          <p><i class="fas fa-headset"></i> 24/7 Student Support</p>
+        </div>
+      </div>
+      <div class="footer_bottom">
+        <p>&copy; 2025 Hiren Shop. Designed for Excellence.</p>
+      </div>
+    </footer>
+    <!------------ footer end  -------------->
+
+    <!-- bootstrap js link -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <!-- js link -->
+    {% block js_link %}{% endblock %}
+    <script src="{% static 'app/js/script.js' %}"></script>
+  </body>
+</html>

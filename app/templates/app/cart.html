@@ -1,0 +1,88 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% block title %}Shopping Cart{% endblock %}
+
+{% block css_url %}
+<link rel="stylesheet" href="{% static 'app/css/cart.css' %}">
+{% endblock %}
+
+{% block container %}
+<div class="container my-5">
+    <h2 class="mb-4 fw-bold">Shopping Cart 🛒</h2>
+    
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 p-3 mb-4">
+                <table class="table align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Product</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th class="text-center">Qty</th>
+                            <th>Total</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in product %}
+                        <tr>
+                            <td>
+                                <img src="{{ item.product.image.url }}" width="70" class="rounded shadow-sm">
+                            </td>
+                            <td><span class="fw-bold">{{ item.product.name }}</span></td>
+                            <td>₹{{ item.product.price }}</td>
+                            
+                            <td class="text-center">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <a href="{% url 'decrease_quantity' item.id %}" class="btn btn-sm btn-outline-danger shadow-sm">-</a>
+                                    <span class="mx-3 fw-bold fs-5">{{ item.quantity }}</span>
+                                    <a href="{% url 'increase_quantity' item.id %}" class="btn btn-sm btn-outline-success shadow-sm">+</a>
+                                </div>
+                            </td>
+
+                            <td class="fw-bold text-primary">₹{{ item.total_product_price }}</td>
+                            <td>
+                                <a href="{% url 'remove_cart_item' item.id %}" class="text-danger text-decoration-none">
+                                    <i class="fas fa-trash-alt"></i> Remove
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center py-5">
+                                <h5 class="text-muted">Your cart is currently empty.</h5>
+                                <a href="{% url "product"%}" class="btn btn-primary mt-2">Go Shopping</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card shadow-sm border-0 p-4 sticky-top" style="top: 20px;">
+                <h4 class="fw-bold mb-3">Order Summary</h4>
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Subtotal</span>
+                    <span>₹{{grand_total}}</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2 text-success">
+                    <span>Shipping</span>
+                    <span>FREE</span>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between mb-4">
+                    <span class="h5 fw-bold">Grand Total</span>
+                    <span class="h5 fw-bold text-primary">₹{{grand_total}}</span>
+                </div>
+                <button class="btn btn-warning btn-lg w-100 fw-bold py-3 mb-2 shadow-sm"> <a href="{% url 'checkout'%}" class="text-decoration-none text-dark">Proceed to Checkout
+           </a
+        ></button>
+                <a href="{% url 'product' %}" class="btn btn-outline-dark w-100">Continue Shopping</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

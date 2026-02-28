@@ -1,0 +1,181 @@
+.main_containerr {
+    background-color: #fff;
+    color: #334155;
+    font-family: 'Poppins', sans-serif;
+}
+
+.header_section {
+    background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)),
+        url('/static/app/images/.jpg') no-repeat center center/cover;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.brand-name {
+    color: #38bdf8;
+}
+
+.header-content h1 {
+    font-size: 45px;
+    margin-bottom: 10px;
+}
+
+.top_main {
+    padding: 80px 20px;
+}
+
+.top_container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.about-flex {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+}
+
+.about-image {
+    flex: 1;
+}
+
+.about-image img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 20px 20px 0px #f1f5f9;
+}
+
+.experience-box {
+    background: #0f172a;
+    width: 20%;
+    margin: 50px auto;
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.experience-box span {
+    font-size: 30px;
+    font-weight: bold;
+    color: #38bdf8;
+}
+
+.about-text {
+    flex: 1.2;
+}
+
+.sub-title {
+    color: #38bdf8;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.about-text h2 {
+    font-size: 36px;
+    margin: 15px 0;
+    color: #0f172a;
+}
+
+.about-text p {
+    line-height: 1.8;
+    color: #64748b;
+    margin-bottom: 20px;
+}
+
+.stats-grid {
+    display: flex;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.stat-item h3 {
+    font-size: 28px;
+    color: #0f172a;
+    margin-bottom: 5px;
+}
+
+.stat-item p {
+    margin: 0;
+    color: #38bdf8;
+    font-weight: 600;
+}
+
+.bottom_section {
+    background-color: #f8fafc;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 32px;
+    margin-bottom: 50px;
+    color: #0f172a;
+}
+
+.bottom_main_section {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.bottom-card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 20px;
+    flex: 1;
+    transition: 0.3s;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.bottom-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.bottom-card i {
+    font-size: 40px;
+    color: #38bdf8;
+    margin-bottom: 20px;
+}
+
+.bottom-card h3 {
+    margin-bottom: 15px;
+    color: #0f172a;
+}
+
+@media (max-width: 768px) {
+    .about-flex {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .bottom_main_section {
+        flex-direction: column;
+    }
+
+    .header-content h1 {
+        font-size: 32px;
+    }
+
+    .stats-grid {
+        justify-content: center;
+    }
+
+    .about-image img {
+        width: 80%;
+
+    }
+
+    .experience-box {
+        width: 60%;
+    }
+}

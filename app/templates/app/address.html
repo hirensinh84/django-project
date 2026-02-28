@@ -1,0 +1,84 @@
+{% extends "app/base.html"%}
+{% load static%}
+{% block title %}Address{% endblock %}
+{% block css_url %}<link rel="stylesheet" href="{% static 'app/css/address.css'%}">{% endblock %}
+{% block hero %}{% endblock %}
+{% block container %}
+<section>
+<div class="container my-5">
+    <div class="row g-4">
+        <div class="col-md-7">
+            <h4 class="mb-4 fw-bold text-dark">My Saved Addresses 🏠</h4>
+            <div class="row">
+                {% for addr in addresses %}
+                <div class="col-12 mb-3">
+                    <div class="card shadow-sm border-0 p-3 address-card">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h6 class="fw-bold mb-1 text-uppercase" style="letter-spacing: 0.5px;">{{ addr.full_name }}</h6>
+                                <p class="small text-muted mb-1">{{ addr.address_line }}</p>
+                                <p class="small text-muted mb-1">{{ addr.city }}, {{ addr.state }} - {{ addr.pincode }}</p>
+                                <p class="small fw-bold text-dark mb-0">📞 {{ addr.mobile }}</p>
+                            </div>
+                            <a href="{% url 'delete_address' addr.id %}" class="btn btn-sm btn-outline-danger border-0">
+                                <i class="fas fa-trash"></i> Delete
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="alert alert-light border text-center p-4">
+                    <p class="mb-0 text-muted">No addresses found. Please add a new shipping address.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <div class="card p-4 shadow-sm border-0 bg-white rounded-4 border-top border-dark border-4">
+                <h4 class="fw-bold mb-4">Add New Address</h4>
+                <form action="{% url 'address' %}"  method="POST">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Full Name</label>
+                        <input type="text" name="full_name" class="form-control shadow-none" placeholder="Enter recipient name" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Mobile Number</label>
+                        <input type="text" name="mobile" class="form-control shadow-none" placeholder="10-digit mobile number" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Full Address</label>
+                        <textarea name="address_line" class="form-control shadow-none" rows="3" placeholder="Flat, House no., Building, Apartment, Area" required></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label class="form-label small fw-bold">City</label>
+                            <input type="text" name="city" class="form-control shadow-none" placeholder="City" required>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label class="form-label small fw-bold">State</label>
+                            <input type="text" name="state" class="form-control shadow-none" placeholder="State" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold">Pincode</label>
+                        <input type="text" name="pincode" class="form-control shadow-none" placeholder="6-digit Pincode" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-dark w-100 py-3 fw-bold shadow-sm">
+                        SAVE ADDRESS & CONTINUE
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+    
+{% endblock %}

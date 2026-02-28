@@ -1,0 +1,29 @@
+{% extends 'app/base.html'%}
+{% load static%}
+{% block title %}Change Password{% endblock %}
+{% block css_url %}<link rel="stylesheet" href="{% static 'app/css/change.css'%}">{% endblock %}
+
+{% block hero %}{% endblock %}
+
+{% block container %}
+<main>
+    <div class="change-password-card">
+        <h2>Update Password</h2>
+        <p class="user-info">Setting a new password for: <strong>{{ email }}</strong></p>
+
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %} <input type="password" name="new_password" placeholder="New Password" required>
+            <input type="password" name="confirm_password" placeholder="Confirm New Password" required>
+            <button type="submit">Update Password</button>
+        </form>
+    </div>
+</main>
+{% endblock %}

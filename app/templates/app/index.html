@@ -1,0 +1,36 @@
+{% extends "app/base.html" %}
+{% load static%}
+{% block title %}Home{% endblock %}
+{% block css_url %}<link rel="stylesheet" href="{% static 'app/css/home.css'%}">{% endblock %}
+{% block hero %}
+    <!---------- main section start ------------>
+    <section>
+        <div class="main-section">
+
+            <div class="slider-main-container">
+                <div class="slider" id="slider">
+                    <img src="{% static 'app/images/01.slider.jpg' %}" alt="Slider Image">
+                    <img src="{% static 'app/images/02.slider.jpg' %}" alt="Slider Image">
+                    <img src=" {% static 'app/images/03.slider.jpg' %}" alt="Slider Image">
+                </div>
+            </div>
+            <div class="section-welcome">
+                <h2>Welcome</h2>
+                <p class="welcome_para">Welcome to our website! Explore our exclusive collection of office chairs and
+                    tables, designed to
+                    provide comfort, style, and functionality for your workspace. Whether you are furnishing a home
+                    office or a professional environment, we have the perfect solution to meet your needs.</p>
+            </div>
+        </div>
+    </section>
+    <!---------- main section end ------------>
+    {% endblock %}
+    {% block content %}
+    
+    {% endblock%}
+    {% block js_link %}
+    <script src="{% static 'app/js/home.js' %}"></script>
+    {% endblock %}
+   
+   
+    

@@ -1,0 +1,144 @@
+.login-main_container {
+    min-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f4f7f6;
+    padding: 20px;
+}
+
+.login-inner_container {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.login-header h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.login-header p {
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+
+.input-box {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 12px 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    outline: none;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.input-box label {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: #999;
+    pointer-events: none;
+    transition: 0.3s;
+}
+
+.input-box input:focus~label,
+.input-box input:valid~label {
+    top: -10px;
+    left: 10px;
+    font-size: 12px;
+    background: #fff;
+    padding: 0 5px;
+    color: #007bff;
+}
+
+.input-box input:focus {
+    border-color: #007bff;
+}
+
+
+.forgot_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    font-size: 14px;
+}
+
+.forgot {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.login-btn:hover {
+    background: #0056b3;
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+}
+
+.social-login {
+    margin-top: 30px;
+}
+
+.social-btns {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.social-btns a {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ddd;
+    color: #333;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.social-btns a:hover {
+    background: #f0f0f0;
+    color: #007bff;
+}
+
+.register-text {
+    margin-top: 25px;
+    font-size: 14px;
+    color: #555;
+}
+
+.register-text a {
+    color: #007bff;
+    font-weight: 600;
+    text-decoration: none;
+}

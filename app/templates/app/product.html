@@ -1,0 +1,77 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}Product{% endblock %}
+
+{% block css_url %}
+<link rel="stylesheet" href="{% static 'app/css/product.css' %}" />
+{% endblock %}
+
+{% block hero %}{% endblock hero %}
+
+{% block container %}
+<div class="p-main-container">
+    <div class="main-heading">
+        <h1>Product <span class="all">All</span></h1>
+    </div>
+
+    <div class="p-inner-container">
+        <div class="filter-container">
+            <h3>Filter Categories</h3>
+            <label><input type="checkbox" value="office" class="filter-checkbox" /> Office</label>
+            <label><input type="checkbox" value="gaming" class="filter-checkbox" /> Gaming</label>
+            <label><input type="checkbox" value="student" class="filter-checkbox" /> Student</label>
+            <label><input type="checkbox" value="cafe" class="filter-checkbox" /> Cafe</label>
+            <label><input type="checkbox" value="salon" class="filter-checkbox" /> Salon</label>
+            <label><input type="checkbox" value="hotel" class="filter-checkbox" /> Hotel</label>
+        </div>
+
+        <div class="product-container">
+            {% for product in page_obj %}
+            <a href="{% url 'product_detail' product.id %}" class="card-link">
+                <div class="cartvalue">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" />
+                    <p class="brand_name">{{ product.name }}</p>
+
+                    <div class="price-container">
+                        <span class="main-price">₹{{product.price}}</span>
+                        <span class="delte-mony">₹{{ product.double_price }}</span>
+
+                        <div class="total-stocks">
+                            {% if product.stock > 0 %}
+                            <p class="stock-in">
+                                Stock: {{ product.stock }}
+                                <span class="stock_yes">Available</span>
+                            </p>
+                            {% else %}
+                            <p class="stock-out">Out of Stock</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="pagination-wrapper">
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1" class="page-btn">&laquo; First</a>
+                    <a href="?page={{ page_obj.previous_page_number }}" class="page-btn">Previous</a>
+                {% endif %}
+
+                <span class="current-info">
+                    Page <strong>{{ page_obj.number }}</strong> of {{ page_obj.paginator.num_pages }}
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="page-btn">Next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}" class="page-btn">Last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+</div>
+{% endblock container %}

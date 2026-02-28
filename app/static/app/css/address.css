@@ -1,0 +1,46 @@
+/* Card Styling */
+.address-card {
+    border-radius: 12px;
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    transition: all 0.3s ease;
+}
+
+.address-card:hover {
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1) !important;
+    transform: translateY(-2px);
+    border-left: 4px solid #000;
+}
+
+/* Form Controls */
+.form-control {
+    border: 1px solid #e0e0e0;
+    padding: 12px;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    background-color: #fafafa;
+}
+
+.form-control:focus {
+    border-color: #000;
+    background-color: #fff;
+}
+
+/* Buttons */
+.btn-dark {
+    background-color: #000;
+    border: none;
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+}
+
+.btn-dark:hover {
+    background-color: #333;
+}
+
+.btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: #fff;
+}

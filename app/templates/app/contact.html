@@ -1,0 +1,96 @@
+{% extends 'app/base.html' %}
+{% load static%}
+{% block title %}contact{% endblock %}
+{% block css_url %}<link rel="stylesheet" href="{% static 'app/css/contact.css'%}">{% endblock %}
+
+{% block hero %}{% endblock %}
+
+{% block container %}
+<div class="main_container">
+    <div class="inner_content">
+        
+        {% comment %} contain section start {% endcomment %}
+        <div class="contain_container">
+            <div class="header_section">
+                <h2>Get in Touch</h2>
+                <p>Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+            </div>
+           
+            <div class="address-details">
+                <div class="address-item">
+                    <div class="icon-box"><i class="fas fa-map-marker-alt"></i></div>
+                    <div class="text-box">
+                        <h3>Our Location</h3>
+                        <p>123, Hiren Shop Tower, Silicon Valley Area, Gujarat, India.</p>
+                    </div>
+                </div>
+
+                <div class="address-item">
+                    <div class="icon-box"><i class="fas fa-phone-alt"></i></div>
+                    <div class="text-box">
+                        <h3>Phone Number</h3>
+                        <p>+91 98765 43210</p>
+                        <p>+91 12345 67890</p>
+                    </div>
+                </div>
+
+                <div class="address-item">
+                    <div class="icon-box"><i class="fas fa-envelope"></i></div>
+                    <div class="text-box">
+                        <h3>Email Address</h3>
+                        <p>support@hirenshop.com</p>
+                        <p>info@hireninstitute.com</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="social-links-section">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+              {% comment %} contain section end {% endcomment %}
+
+               {% comment %} form section start {% endcomment %}
+
+        <div class="contact-form-section">
+            <form method="POST" class="main-contact-form">
+                {% csrf_token %}
+                <div class="row-inputs">
+                    <div class="input-box">
+                        <input type="text" id="fname" name="first_name" required>
+                        <label for="fname">First Name</label>
+                    </div>
+                    <div class="input-box">
+                        <input type="text" id="lname" name="last_name" required>
+                        <label for="lname">Last Name</label>
+                    </div>
+                </div>
+
+                <div class="input-box">
+                    <input type="email" id="email" name="email" required>
+                    <label for="email">Email Address</label>
+                </div>
+
+                <div class="input-box">
+                    <input type="text" id="subject" name="subject" required>
+                    <label for="subject">Subject</label>
+                </div>
+
+                <div class="input-box">
+                    <textarea id="message" rows="5" name="message" required></textarea>
+                    <label for="message">Your Message</label>
+                </div>
+
+                <button type="submit" class="contact-btn" >
+                    <span>Send Message</span> <i class="fas fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+              {% comment %} form section end {% endcomment %}
+
+    </div>
+</div>
+{% endblock %}
