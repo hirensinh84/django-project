@@ -133,3 +133,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 RAZORPAY_KEY_ID = 'rzp_test_SKMcvTh07DxQVn'
 RAZORPAY_KEY_SECRET = 'PWRnW4DUOlcyo2OZWQ0iSGoP'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'hirengohil1686@gmail.com'
+EMAIL_HOST_PASSWORD = 'ajsp jmel wuor kfkp'

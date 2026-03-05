@@ -1,0 +1,85 @@
+.otp-wrapper {
+    text-align: center;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    max-width: 400px;
+    margin: 50px auto;
+    font-family: 'Arial', sans-serif;
+}
+
+.otp-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.otp-input {
+    width: 45px;
+    height: 55px;
+    font-size: 24px;
+    text-align: center;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background: #f9f9f9;
+    transition: all 0.3s ease;
+}
+
+.otp-input:focus {
+    border-color: #2455f4;
+    background: #fff;
+    box-shadow: 0 0 8px rgba(36, 85, 244, 0.2);
+    outline: none;
+}
+
+.btn-verify {
+    width: 100%;
+    padding: 12px;
+    background: #2455f4;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn-verify:hover {
+    background: #1a3fb3;
+}
+
+.resend-text {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #666;
+}
+
+.messages-container{
+    text-align: center;
+    /* height: 10px; */
+}
+
+.message.success {
+    padding: 10px 0;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+
+.message.error {
+    padding: 10px 0;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+
+.message.warning {
+    padding: 10px 0;
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}

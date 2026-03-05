@@ -7,8 +7,137 @@
 {% endblock %}
 
 {% block container %}
-  <h1>Order Detail</h1>
-{% endblock %}
+<div class="order-container">
+
+    <!-- ================= ACTIVE ORDERS ================= -->
+    <h2 class="section-title">Your Orders</h2>
+
+    {% for order in new_orders %}
+    <div class="order-card">
+
+        <!-- CLICKABLE SUMMARY -->
+        <div class="order-summary" onclick="toggleDetails({{ order.id }})">
+
+            <div class="left-section">
+                {% with order.orderitem_set.first as first_item %}
+                    <img src="{{ first_item.product.image.url }}" alt="">
+                    <div class="order-basic">
+                        <h4>{{ first_item.product.name }}</h4>
+                        <p>Order ID: {{ order.order_id }}</p>
+                        <p>{{ order.created_at|date:"M d, Y" }}</p>
+                    </div>
+                {% endwith %}
+            </div>
+
+            <div class="status {{ order.status }}">
+                {{ order.status }}
+            </div>
+
+        </div>
+
+        <!-- DETAIL SECTION -->
+        <div class="order-details" id="details-{{ order.id }}">
+
+            {% for item in order.orderitem_set.all %}
+            <div class="product-row">
+                <div class="product-left">
+                    <img src="{{ item.product.image.url }}" alt="">
+                    <div>
+                        <p class="product-name">{{ item.product.name }}</p>
+                        <p>Quantity: {{ item.quantity }}</p>
+                    </div>
+                </div>
+                <div class="price">₹{{ item.price }}</div>
+            </div>
+            {% endfor %}
+
+            <div class="total">
+                Total: ₹{{ order.total_amount }}
+            </div>
+
+            <div class="address">
+                <strong>Shipping Address:</strong><br>
+                {{ order.address_data.address }}
+            </div>
+
+        </div>
+
+    </div>
+    {% empty %}
+        <p>No active orders found.</p>
+    {% endfor %}
+
+
+
+    <!-- ================= COMPLETED ORDERS ================= -->
+
+    <h2 class="section-title completed-title">Completed Orders</h2>
+
+    {% for order in past_orders %}
+    <div class="order-card done-order">
+
+        <div class="order-summary" onclick="toggleDetails({{ order.id }})">
+
+            <div class="left-section">
+                {% with order.orderitem_set.first as first_item %}
+                    <img src="{{ first_item.product.image.url }}" alt="">
+                    <div class="order-basic">
+                        <h4>{{ first_item.product.name }}</h4>
+                        <p>Order ID: {{ order.order_id }}</p>
+                        <p>{{ order.created_at|date:"M d, Y" }}</p>
+                    </div>
+                {% endwith %}
+            </div>
+
+            <div class="status {{ order.status }}">
+                {{ order.status }}
+            </div>
+
+        </div>
+
+        <div class="order-details" id="details-{{ order.id }}">
+
+            {% for item in order.orderitem_set.all %}
+            <div class="product-row">
+                <div class="product-left">
+                    <img src="{{ item.product.image.url }}" alt="">
+                    <div>
+                        <p class="product-name">{{ item.product.name }}</p>
+                        <p>Quantity: {{ item.quantity }}</p>
+                    </div>
+                </div>
+                <div class="price">₹{{ item.price }}</div>
+            </div>
+            {% endfor %}
+
+            <div class="total">
+                Total: ₹{{ order.total_amount }}
+            </div>
+
+            <div class="address">
+                <strong>Shipping Address:</strong><br>
+                {{ order.address_data.address }}
+            </div>
+
+        </div>
+
+    </div>
+    {% empty %}
+        <p>No completed orders.</p>
+    {% endfor %}
+
+</div>
+
+
+<script>
+function toggleDetails(id){
+    var element = document.getElementById("details-" + id);
+    element.classList.toggle("show");
+}
+</script>
+
+
+ {% endblock container %}
 
 {% block content %}
     

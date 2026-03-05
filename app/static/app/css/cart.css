@@ -1,0 +1,86 @@
+/* Card hover effect */
+.card {
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Quantity Button Styling */
+.qty-container i {
+    font-size: 1.5rem;
+}
+
+/* Sticky Summary on Desktop */
+@media (min-width: 992px) {
+    .sticky-top {
+        position: sticky;
+        top: 20px;
+    }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 767px) {
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    h2 {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+    /* Make buttons full width on small mobile */
+    .btn-lg {
+        font-size: 1rem;
+    }
+}
+
+/* Custom shadow for images */
+.rounded.shadow-sm {
+    border: 1px solid #eee;
+}
+
+
+
+
+
+
+
+
+
+.quantity-selector {
+    display: inline-flex;
+    align-items: center;
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 50px; 
+    padding: 2px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.qty-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+    font-size: 0.8rem;
+}
+
+.qty-btn.minus { color: #dc3545; background: white; }
+.qty-btn.plus { color: #198754; background: white; }
+
+.qty-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.qty-number {
+    padding-left: 12px;
+    padding-right: 12px;
+    min-width: 30px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #333;
+}

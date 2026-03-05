@@ -13,21 +13,86 @@ from django.core.paginator import Paginator
 import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.core.paginator import Paginator
+import random
+from django.core.mail import send_mail
 
 
 def home(request):
-    return render(request, 'app/index.html')
+    categories=category.objects.all()
+    product =products.objects.all()[:8]
 
-def product(request):
-    products_list=products.objects.all()
-    paginator = Paginator( products_list, 6)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    return render(request, 'app/product.html' ,{'products':products_list, 'page_obj': page_obj})
+
+    cart_product_id = []
+
+    if request.user.is_authenticated:
+       user_cart=cart.objects.filter(user=request.user).first()
+
+       if user_cart:
+          cart_product_id=cart_item.objects.filter(cart=user_cart).values_list('product_id', flat=True)
+          print(cart_product_id)
+    
+    context = {
+        'categories': categories,
+        'products':product,
+        'cart_product_id':cart_product_id 
+    }
+    return render(request, 'app/index.html',context)
+
+
+def product(request,id=None):
+    if id:
+        products_list=products.objects.filter(category_id=id)
+    else:
+        products_list=products.objects.all()
+
+
+    products_all=products.objects.all()    
+
+    min_price=request.POST.get('min_price')
+    max_price=request.POST.get('max_price')
+    category_get=request.POST.get('category')
+    sort=request.POST.get('sort')    
+
+    if min_price:
+        products_list=products_list.filter(price__gte=min_price)
+    if max_price:
+        products_list=products_list.filter(price__lte=max_price)
+    if category_get:
+        products_list=products_list.filter(category_id=category_get)
+    if sort:
+        if sort=='low_to_high':
+            products_list=products_list.order_by('price')
+        elif sort=='high_to_low':
+            products_list=products_list.order_by('-price')
+        # elif sort=='newest':
+            # products_list=products_list.order_by('-created_at')
+
+
+
+
+    categories_all=category.objects.all()    
+    # paginator = Paginator( products_list, 6)
+    # page_number = request.GET.get('page')
+    # page_obj = paginator.get_page(page_number)
+    return render(request, 'app/product.html',{'products':products_list,'categories':categories_all})
 
 def product_detail(request, pk):
+
     product = products.objects.get(id=pk)
-    return render(request, 'app/products_detail.html', {'product': product})    
+
+    cart_product_id = []
+
+    if request.user.is_authenticated:
+        user_cart=cart.objects.filter(user=request.user).first()
+
+
+
+        if user_cart:
+            cart_product_id=cart_item.objects.filter(cart=user_cart).values_list('product_id', flat=True)
+            print(cart_product_id)
+
+    return render(request, 'app/products_detail.html', {'product': product,'cart_product_id':cart_product_id})    
 
 
 def login(request):
@@ -111,10 +176,6 @@ def contact(request):
 def about(request):
     return render(request, 'app/about.html')
 
-def change(request):
-    return render(request, 'app/change.html')
-def forget(request):
-    return render(request, 'app/forget_password.html')
 
 @login_required
 def oldpass_view(request):
@@ -154,8 +215,7 @@ def add_to_cart(request, pk):
         user_cart = cart.objects.create(user=request.user)    
 
     try:
-        cart_item_data = cart_item.objects.get(cart=user_cart, product=product1)
-        cart_item_data.quantity += 1    
+        cart_item_data = cart_item.objects.get(cart=user_cart, product=product1)   
         cart_item_data.save()
     except cart_item.DoesNotExist:
         cart_item.objects.create(cart=user_cart, product=product1, quantity=1)
@@ -379,6 +439,10 @@ def payment_succes_view(request):
                     price=item.product.price
 
                 )
+                current_product=item.product
+                current_product.stock -= item.quantity
+                current_product.save()
+
             user_cart_item.delete()
             return JsonResponse({"status": "success"})
        
@@ -389,8 +453,109 @@ def payment_succes_view(request):
 def order_detail_view(request):
     if not request.user.is_authenticated:
         return redirect('login')
-# 
-    # user_orders=order.objects.filter(user=request.user)
-    return render(request, 'app/order_detail.html')
 
+    new_orders=order.objects.filter(
+        user=request.user,
+        status__in=['Pending', 'Packed', 'Shipped']
+        ).order_by('-created_at')
+    
+    past_orders=order.objects.filter(
+        user=request.user,
+        status='Delivered'
+        ).order_by('-created_at')
+    
+    cancelled_orders=order.objects.filter(
+        user=request.user,
+        status='Cancelled'
+        ).order_by('-created_at')
+
+    context={
+        'new_orders': new_orders,
+        'past_orders': past_orders,
+        'cancelled_orders': cancelled_orders
+    }
+
+    return render(request, 'app/order_detail.html',  context)
+
+def forget(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        try:
+            user = User.objects.get(email=email)
+
+            if user:
+                otp=random.randint(100000, 999999)
+                request.session['reset_otp']=otp
+                request.session['reset_email']=email
+
+                subject= 'Your Password Reset OTP'
+                message= f"Your OTP for password reset is {otp}"
+                send_mail(
+                    subject,
+                    message,
+                    'hirengohil1686@gmail.com',
+                    [email]
+                )
+                return redirect('otp_verify')
+        except User.DoesNotExist:
+            messages.error(request, "User with this email does not exist. Please try again.")
+    return render(request, 'app/forget_password.html')
+
+def otp_verify_view(request):
+    if request.method == 'POST':
+        list_otp =""
+
+        list_otp +=request.POST.get('otp1')
+        list_otp +=request.POST.get('otp2')
+        list_otp +=request.POST.get('otp3')
+        list_otp +=request.POST.get('otp4')
+        list_otp +=request.POST.get('otp5')
+        list_otp +=request.POST.get('otp6')
+
+        print(list_otp)
+
+        if list_otp == str(request.session.get('reset_otp')):
+            return redirect('reset_password')
+        else:
+            messages.error(request, "Invalid OTP. Please try again.")
+
+    return render(request, 'app/otp_verify.html')
    
+def reset_password_view(request):
+    if request.method == 'POST':
+        new_password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
+
+        if new_password != confirm_password:
+            messages.error(request, "Passwords do not match. Please try again.")
+        else:
+            email = request.session.get('reset_email')
+            user = User.objects.get(email=email)
+            user.set_password(new_password)
+            user.save()
+            return redirect('login')
+        
+    return render(request, 'app/reset_pass.html', {'email': request.session.get('reset_email')})
+
+
+def resend_otp_view(request):
+    new_otp = random.randint(100000, 999999)
+    
+    request.session['reset_otp'] = new_otp
+
+    subject = 'Your Password Reset OTP'
+    message =f'Your new OTP is {new_otp}. It is valid for 5 minutes.'
+    email = request.session.get('reset_email')
+
+    try:
+        send_mail(
+        subject,
+        message,
+        'hirengohil1686@gmail.com',
+        [email]
+    )
+        messages.success(request, "New OTP has been sent to your email.")
+    except:
+        messages.error(request, "Failed to send OTP. Please try again.")
+
+    return redirect('otp_verify')

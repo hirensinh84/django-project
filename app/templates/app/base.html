@@ -37,7 +37,7 @@
         <nav class="header_nav">
           <ul class="header_list">
             <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="{% url 'product'%}">All Product</a></li>
+            <li><a href="{% url 'product'%}">Product</a></li>
             <li><a href="{% url 'about'%}">About</a></li>
             <li><a href="{% url 'contact' %}">Contact</a></li>
           </ul>
@@ -79,7 +79,7 @@
                 >My Address</a
               >
             </li>
-            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><a class="dropdown-item" href="{% url 'order_detail' %}">Orders</a></li>
             <li><hr class="dropdown-divider" /></li>
             <li>
               <a class="dropdown-item logout_link text-danger fs-4 fw-bold" href="{% url 'logout' %}"
@@ -127,7 +127,7 @@
           <h3>Quick Links</h3>
           <ul class="footer_list">
             <li><a href="{% url 'home'%}">Home</a></li>
-            <li><a href="{% url 'product'%}">All Product</a></li>
+            <li><a href="{% url 'product'%}">Product</a></li>
             <li><a href="{% url 'about' %}">About</a></li>
             <li><a href="{% url 'contact' %}">Contact</a></li>
           </ul>

@@ -1,36 +1,241 @@
 {% extends "app/base.html" %}
 {% load static%}
-{% block title %}Home{% endblock %}
-{% block css_url %}<link rel="stylesheet" href="{% static 'app/css/home.css'%}">{% endblock %}
-{% block hero %}
-    <!---------- main section start ------------>
-    <section>
-        <div class="main-section">
+{% block title %}Home{% endblock%}
+{% block css_url %}<link rel="stylesheet" href="{% static 'app/css/home.css'%}"
 
-            <div class="slider-main-container">
-                <div class="slider" id="slider">
-                    <img src="{% static 'app/images/01.slider.jpg' %}" alt="Slider Image">
-                    <img src="{% static 'app/images/02.slider.jpg' %}" alt="Slider Image">
-                    <img src=" {% static 'app/images/03.slider.jpg' %}" alt="Slider Image">
+/>{% endblock %}
+
+ {% block hero %}
+<!---------- main section start ------------>
+{% comment %}
+<section>
+  <div class="main-section">
+    <div class="slider-main-container">
+      <div class="slider" id="slider">
+        <img src="{% static 'app/images/01.slider.jpg' %}" alt="Slider Image" />
+        <img src="{% static 'app/images/02.slider.jpg' %}" alt="Slider Image" />
+        <img
+          src=" {% static 'app/images/03.slider.jpg' %}"
+          alt="Slider Image"
+        />
+      </div>
+    </div>
+    <div class="section-welcome">
+      <h2>Welcome</h2>
+      <p class="welcome_para">
+        Welcome to our website! Explore our exclusive collection of office
+        chairs and tables, designed to provide comfort, style, and functionality
+        for your workspace. Whether you are furnishing a home office or a
+        professional environment, we have the perfect solution to meet your
+        needs.
+      </p>
+    </div>
+  </div>
+</section>
+{% endcomment %}
+<!---------- main section end ------------>
+{% endblock %} 
+
+{% block container %}
+<section class="hero-section">
+    <div class="hero-content">
+       <h1>Your Ultimate Shopping Destination</h1>
+       <p>Top Brands. Best Prices. Shop Fashion, Tech & More!</p>
+       <a href="/product/" class="hero-btn">Shop Now</a>
+    </div>
+</section>
+
+<section class="category-section">
+    <div class="container">
+       <h2 class="section-title">Shop by Category</h2>
+       <div class="category-grid">
+          {% for cat in categories %}
+          <div class="category-card">
+                <div class="cat-info">
+                   <h3>{{ cat.name }}</h3>
+                   <a href="{% url 'category_products' cat.id %}"   class="cat-link">Explore Now &arr;</a>
                 </div>
             </div>
-            <div class="section-welcome">
-                <h2>Welcome</h2>
-                <p class="welcome_para">Welcome to our website! Explore our exclusive collection of office chairs and
-                    tables, designed to
-                    provide comfort, style, and functionality for your workspace. Whether you are furnishing a home
-                    office or a professional environment, we have the perfect solution to meet your needs.</p>
+          {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="products-section">
+    <div class="container">
+       <h2 class="section-title">Trending Collections</h2>
+       <div class="product-grid">
+            {% for p in products %}
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="{{ p.image.url }}" alt="{{ p.name }}" />
+                    {% if p.stock <= 0 %}
+                    <span class="badge out-of-stock">Out of Stock</span>
+                    {% endif %}
+                </div>
+                <div class="product-info">
+                   <h3>{{ p.name }}</h3>
+                   <p class="price">₹{{ p.price }}</p>
+                    <div class="product-actions">
+                        <a href="/product/{{ p.id }}/" class="btn-view">Details</a>
+
+
+
+                    {% if p.id in cart_product_id%}
+                        <a href="{% url 'add_to_cart' p.id %}" class="btn-add"><button class="btn-add">Go to Cart</button></a>
+                    {% else %}
+                       {% if p.stock > 0 %}
+                         <a href="{% url 'add_to_cart' p.id %}"  class="btn-add"><button class="btn-add">Add to Cart</button></a>
+                       {% else %}
+                         <a href="#" class="btn-add"><button  class="btn-add" disabled>Out of Stock</button></a>
+                       {% endif %}    
+                    {% endif %}
+      
+      
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="testimonials-section">
+    <div class="container">
+        <h2 class="section-title">What Our Customers Say</h2>
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <div class="user-rating">⭐⭐⭐⭐⭐</div>
+                <p>"The sofa I bought is extremely comfortable and fits perfectly in my
+                living room. Great quality!"</p>
+                <div class="user-info">
+                    <strong>- Rajesh Kumar</strong>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="user-rating">⭐⭐⭐⭐⭐</div>
+                <p>"Amazing designs and very fast delivery. Highly recommended for office        furniture."</p>
+                <div class="user-info">
+                    <strong>- Priya Patel</strong>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="user-rating">⭐⭐⭐⭐</div>
+                <p>"Affordable prices and very sturdy build. Will definitely shop again      from Hiren Furniture."</p>
+                <div class="user-info">
+                    <strong>- Amit Shah</strong>
+                </div>
             </div>
         </div>
-    </section>
-    <!---------- main section end ------------>
-    {% endblock %}
-    {% block content %}
-    
-    {% endblock%}
-    {% block js_link %}
-    <script src="{% static 'app/js/home.js' %}"></script>
-    {% endblock %}
-   
-   
-    
+    </div>
+</section>
+
+<section class="brands-section">
+    <div class="container">
+        <h2 class="section-title">Shop by Top Brands</h2>
+        <div class="brands-grid">
+            <div class="brand-item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" alt="Nike"/>
+            </div>
+            <div class="brand-item">
+                <img src="https://www.vectorlogo.zone/logos/adidas/adidas-ar21.svg"
+                alt="Adidas"/>
+            </div>
+            <div class="brand-item">
+                <img src="https://www.vectorlogo.zone/logos/samsung/samsung-ar21.svg"
+                alt="Samsung"/>
+            </div>
+            <div class="brand-item">
+                <img src="https://www.vectorlogo.zone/logos/apple/apple-ar21.svg"
+                alt="Apple"/>
+            </div>
+            <div class="brand-item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/H%26M-Logo.svg" alt="H&M"/>
+            </div>
+            <div class="brand-item">
+                <img src="https://www.vectorlogo.zone/logos/hp/hp-ar21.svg"
+                alt="Zara"/>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="universal-cat-section">
+    <div class="container">
+        <h2 class="section-title">Shop Our Lifestyle Collections</h2>
+        <div class="universal-grid">
+            {% for cat in categories|slice:":4" %}
+            <div class="uni-card" style="background-image: url('{{ cat.image.url }}');">
+                <div class="uni-overlay">
+                    <h3>{{ cat.name }}</h3> 
+                    <p>{{ cat.description|truncatewords:5 }}</p>
+                    <a href="{% url 'category_products' cat.id %}" class="uni-btn">Shop Now</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="info-container-section">
+    <div class="container">
+        <div class="info-wrapper">
+            <div class="about-card">
+                <h2>Why Choose Us?</h2>
+                <p> <span class="bold-text">Premium Quality :</span> We curate the best products across all categories to ensure maximum satisfaction.</p>
+                <p><span class="bold-text">Fast Delivery :</span> Get your favorite gadgets and fashion delivered safely and quickly to your doorstep.</p>
+            </div>
+
+            <div class="contact-card">
+                <h2>Get In Touch</h2>
+                <p>📍 123, Your Store Name, Near Main Market, Gujarat.</p>
+                <p>📞 Call Us: +91 98765 43210</p>
+                <p>✉️ Email: support@hirenshop.com</p>
+                <div class="social-links">
+                    <span>Follow us: </span>
+                    <a href="#">FB</a> | <a href="#">IG</a> | <a href="#">TW</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="newsletter-section">
+    <div class="container">
+        <div class="newsletter-content">
+            <h2>Join Our Community</h2>
+            <p>Get the latest updates on new product arrivals, trending fashion, and exclusive deals directly in your inbox.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email address" required />
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+
+        <div class="service-highlights">
+            <div class="service-item">
+                <span class="service-icon">🚚</span>
+                <h4>Fast Delivery</h4>
+                <p>Safe delivery to your doorstep.</p>
+            </div>
+            <div class="service-item">
+                <span class="service-icon">⭐</span>
+                <h4>Top Quality</h4>
+                <p>Crafted with premium materials.</p>
+            </div>
+            <div class="service-item">
+                <span class="service-icon">📞</span>
+                <h4>Expert Support</h4>
+                <p>Available for your assistance.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock container %} 
+
+{% block js_link %}
+<script src="{% static 'app/js/home.js' %}"></script>
+{% endblock %}

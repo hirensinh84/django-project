@@ -13,13 +13,30 @@ detail{% endblock %} {% block css_url %}<link
       <h1>{{ product.name }}</h1>
       <p><strong>Description:</strong> {{ product.description }}</p>
       <p><strong>Price:</strong> ₹{{ product.price }}</p>
-      <button>
-        <a href="{% url 'add_to_cart' product.id %}" class="text-decoration-none text-white">
-          Add to Cart 🛒 </a
-        >
-      </button>
+
+      {% if product.id in cart_product_id%}
+        <button class="btn btn-success">
+         <a href="{% url 'add_to_cart' product.id %}" class="text-decoration-none text-white">
+          Go to Cart 🛒 </a
+         >
+       </button>
+      {% else %}
+          {% if product.stock > 0 %}
+              <button>
+              <a href="{% url 'add_to_cart' product.id %}" class="text-decoration-none text-white">
+              Add to Cart 🛒 </a
+              >
+               </button>
+          {% else %}
+              <button class="btn btn-danger" disabled>
+              <a href="#" class="text-decoration-none text-white"> Out of Stock</a>
+              </button>
+          {% endif %}    
+      {% endif %}
+
+
     </div>
   </div>
 </section>
 
-{% endblock%}
+{% endblock %}

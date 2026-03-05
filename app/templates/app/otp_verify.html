@@ -1,0 +1,49 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% block title %}OTP{% endblock %}
+
+{% block css_url %}
+<link rel="stylesheet" href="{% static 'app/css/otp_verify.css' %}">
+{% endblock %}
+
+{% block container %}
+<div class="otp-wrapper">
+    <h2>Verify OTP</h2>
+    <p>Please enter the 6-digit code sent to your mobile.</p>
+    
+    
+    <form method="POST">
+    <div class="otp-container">
+            {% csrf_token %} 
+            <input type="text" maxlength="1" class="otp-input" pattern="\d*" autofocus name="otp1" required inputmode="numeric" pattern="[0-9]*" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+            <input type="text" maxlength="1"     class="otp-input" pattern="\d*" name="otp2" required>
+            <input type="text" maxlength="1"     class="otp-input" pattern="\d*" name="otp3" required>
+            <input type="text" maxlength="1"     class="otp-input" pattern="\d*" name="otp4" required>
+            <input type="text" maxlength="1"     class="otp-input" pattern="\d*" name="otp5" required>
+            <input type="text" maxlength="1"     class="otp-input" pattern="\d*" name="otp6" required>
+    </div>
+
+    <button class="btn-verify">Verify Now</button>
+    </form>
+       
+    <p class="resend-text">Didn't receive the code? <a href="{% url 'resend_otp'%}">Resend</a></p>
+
+</div>
+{% if messages %}
+    <div class="messages-container">
+        {% for message in messages %}
+            {# message.tags માં success, error, warning વગેરે કિંમતો આવશે #}
+            <div class="message {{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+{% endblock %}
+
+
+{% block js_link %}
+<script src="{% static 'app/js/otp_verify.js' %}"></script>
+{% endblock %}
+
+ 

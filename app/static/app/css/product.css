@@ -284,63 +284,243 @@
     50% { opacity: 0.7; }
     100% { opacity: 1; }
 }
-/* Pagination Wrapper */
+
+
+
+/* Pagination Container */
+.pagination-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    padding-bottom: 20px;
+}
+
 .pagination {
-    display: flex;
-    justify-content: flex-end; /* Right side alignment */
-    margin: 40px 20px; /* Top/Bottom ane Right side thi thodi jagya */
-    font-family: 'Poppins', sans-serif;
+    background: #fff;
+    padding: 10px 20px;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
 }
 
-.step-links {
-    display: flex;
-    align-items: center;
-    gap: 8px; /* Buttons vache spacing */
-}
-
-/* Common style for All Buttons */
-.step-links a {
+/* Individual Buttons */
+.page-btn {
     text-decoration: none;
-    color: #333;
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    padding: 10px 18px;
-    font-size: 14px;
-    font-weight: 500;
-    border-radius: 8px; /* Round corners */
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Halko shadow */
-}
-
-/* Hover Effect: Button upar avse ane color badlashe */
-.step-links a:hover {
-    background-color: #ff4757; /* Tamari brand no color ahiya muki shako */
-    color: #fff;
-    border-color: #ff4757;
-    transform: translateY(-3px); /* Button thodu upar uthse */
-    box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3);
-}
-
-/* Current Page Display Style */
-.current {
-    font-size: 14px;
-    color: #777;
+    color: #3498db;
+    padding: 8px 16px;
+    margin: 0 5px;
+    border: 1px solid #3498db;
+    border-radius: 4px;
+    font-size: 0.9rem;
     font-weight: 600;
-    margin: 0 10px;
-    padding: 10px 15px;
-    background: #f1f2f6;
-    border-radius: 8px;
-    border: 1px dashed #ccc;
+    transition: all 0.3s ease;
 }
 
-/* Mobile Responsive */
-@media (max-width: 768px) {
-    .pagination {
-        justify-content: center; /* Mobile ma center saru lagse */
-        margin: 30px 0;
+.page-btn:hover {
+    background-color: #3498db;
+    color: #fff;
+}
+
+/* Current Page Info */
+.current-info {
+    margin: 0 15px;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.current-info strong {
+    color: #333;
+    background: #f1f1f1;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+
+/* Container Layout */
+.shop-container {
+    display: flex;
+     align-items: flex-start;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 15px;
+}
+
+/* Sidebar Styling */
+.filter-sidebar {
+    width: 280px;
+    background: #fff;
+    position: sticky;
+    top: 120px;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    height: fit-content;
+    border: 1px solid #eee;
+}
+
+.sidebar-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: #333;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+}
+
+/* Filter Groups */
+.filter-group {
+    margin-bottom: 25px;
+}
+
+.filter-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    color: #444;
+}
+
+/* Input & Select Styling */
+.filter-group select,
+.filter-group input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    background-color: #f9f9f9;
+}
+
+.price-inputs {
+    display: flex;
+    gap: 10px;
+}
+
+/* Buttons */
+.btn-apply {
+    width: 100%;
+    background-color: #3498db;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-apply:hover {
+    background-color: #2980b9;
+}
+
+.btn-clear {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #e74c3c;
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+
+/* Product Area */
+.product-area {
+    flex: 1; /* Occupies remaining space */
+}
+
+
+
+
+
+
+
+@media (max-width: 568px) {
+    .p-inner-container {
+        padding: 0 5px; 
+        justify-content: center;
     }
-    .step-links a {
-        padding: 8px 12px;
-        font-size: 12px;
+
+    .shop-container {
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+    }
+
+
+    .filter-sidebar, .filter-container {
+        display: none; 
+    }
+
+    .product-container {
+        width: 92% ;
+        display: grid ;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px; 
+        padding: 10px 0;
+        margin: 0;
+    }
+
+    .cartvalue {
+        width: 100%;
+        margin: 0; 
+        padding: 10px ;
+        box-sizing: border-box;
+        height: auto;
+    }
+
+    
+    .cartvalue img {
+        height: 140px;
+        width: 100% ;
+        object-fit: contain; 
+        background: #f9f9f9;
+        margin-bottom: 8px;
+    }
+
+    .brand_name {
+        font-size: 13px;
+        height: 34px; 
+        overflow: hidden; 
+        display: -webkit-box;
+        margin-bottom: 5px;
+    }
+
+    .price-container {
+        display: flex;
+        flex-direction: column; 
+        /* gap: 2px; */
+    }
+
+    .main-price {
+        font-size: 15px;
+        margin-right: 0;
+    }
+
+    .delte-mony {
+        font-size: 11px;
+    }
+
+    .total-stocks {
+        margin-top: 0px;
+    }
+
+    .stock-in, .stock-out {
+        font-size: 11px;
+        padding: 2px 4px;
+    }
+
+    .stock_yes {
+        font-size: 10px;
+        padding: 1px 4px;
+    }
+}
+
+
+@media (max-width: 380px) {
+    .cartvalue img {
+        height: 120px;
+    }
+    .main-price {
+        font-size: 14px;
     }
 }
