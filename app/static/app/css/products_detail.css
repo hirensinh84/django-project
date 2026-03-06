@@ -142,9 +142,9 @@ section {
         margin: 10px 0;
     }
     .product_info button {
-        width: 100%;
+        width: 83%;
         padding: 15px;
         font-size: 1rem;
-        margin-top: 15px;
+        margin-top: 15px auto;
     }
 }

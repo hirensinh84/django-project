@@ -40,6 +40,7 @@ def home(request):
     return render(request, 'app/index.html',context)
 
 
+
 def product(request,id=None):
     if id:
         products_list=products.objects.filter(category_id=id)
