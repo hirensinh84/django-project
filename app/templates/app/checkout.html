@@ -1,16 +1,17 @@
-{%extends "app/base.html"%} {% load static%} 
-{% block title %}Checkout{%endblock%} 
-{% block css_url %}<link rel="stylesheet" href="{% static 'app/css/checkout.css' %}"
-/>{% endblock %}
+{%extends "app/base.html"%}
+{% load static%}
+{% block title %}Checkout{%endblock%}
+{% block css_url %}<link rel="stylesheet" href="{% static 'app/css/checkout.css' %}"/>{% endblock %}
 
 {% block container %}
+
 <div class="container my-4 my-md-5">
     <h2 class="fw-bold mb-4 text-center text-md-start">Secure Checkout</h2>
     <form action="#" method="POST" id="checkout-form">
         {% csrf_token %}
         <div class="row g-4">
             
-            <div class="col-12 col-md-7">
+            <div class="col-12 col-lg-7">
                 <div class="card p-3 p-md-4 shadow-sm border-0 mb-4">
                     <h4 class="fw-bold mb-3 fs-5">1. Review Items</h4>
                     <hr class="my-2"/>
@@ -28,72 +29,67 @@
                         </div>
                         {% endfor %}
                     </div>
-                    <div class="d-flex justify-content-between h5 fw-bold text-dark mt-3">
-                        <span>Grand Total</span>
-                        <span class="text-primary">₹{{ grand_total }}</span>
-                    </div>
                 </div>
 
-                <div class="card p-3 p-md-4 shadow-sm border-0 mb-3 d-none d-md-block">
-                    <h4 class="fw-bold mb-3 fs-5">3. Payment</h4>
-                    <div class="d-grid">
-                        <button type="submit" id="rzp-button1" class="btn btn-primary btn-lg py-3 fw-bold d-flex align-items-center justify-content-center">
-                            <img src="https://razorpay.com/favicon.png" width="25" class="me-2"/>Pay ₹{{ grand_total }}
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-md-5">
-                <div class="card p-3 p-md-4 shadow-sm border-0 bg-light" style="top: 20px;">
+                <div class="card p-3 p-md-4 shadow-sm border-0 bg-light mb-4">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h4 class="fw-bold mb-0 fs-5">2. Shipping Address</h4>
                         <a href="{% url 'address' %}" class="btn btn-sm btn-outline-dark">+ Add New</a>
                     </div>
                     <hr class="my-2"/>
-
                     <div class="address-list">
-    {% for addr in addresses %}
-    <div class="address-item">
-        <input type="radio" name="selected_address" id="addr{{ addr.id }}" value="{{ addr.id }}" class="address-radio-input" required {% if forloop.first %}checked{% endif %}>
-        
-        <label for="addr{{ addr.id }}" class="address-card-wrapper">
-            <div class="custom-radio-circle">
-                <div class="inner-dot"></div>
-            </div>
-
-            <div class="address-content">
-                <div class="addr-header">
-                    <span class="addr-user-name">{{ addr.full_name }}</span>
-                    {% if addr.default %} <span class="default-badge">HOME</span> {% endif %}
-                </div>
-                <p class="addr-line">{{ addr.address_line }}{% if addr.landmark %}, {{ addr.landmark }}{% endif %}</p>
-                <p class="addr-location">{{ addr.city }}, {{ addr.state }} - <span class="pincode">{{ addr.pincode }}</span></p>
-                <div class="addr-contact">
-                    <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
-                    <span>{{ addr.mobile }}</span>
-                </div>
-            </div>
-        </label>
-    </div>
-    {% empty %}
-    <div class="empty-address">
-        <i class="fas fa-map-marker-alt"></i>
-        <p>No addresses found!</p>
-        <a href="{% url 'address' %}" class="btn-add-now">Add New Address</a>
-    </div>
-    {% endfor %}
-</div>
+                        {% for addr in addresses %}
+                        <div class="address-item">
+                            <input type="radio" name="selected_address" id="addr{{ addr.id }}" value="{{ addr.id }}" class="address-radio-input" required {% if forloop.first %}checked{% endif %}>
+                            <label for="addr{{ addr.id }}" class="address-card-wrapper">
+                                <div class="custom-radio-circle"><div class="inner-dot"></div></div>
+                                <div class="address-content">
+                                    <div class="addr-header">
+                                        <span class="addr-user-name">{{ addr.full_name }}</span>
+                                        {% if addr.default %} <span class="default-badge">HOME</span> {% endif %}
+                                    </div>
+                                    <p class="addr-line">{{ addr.address_line }}{% if addr.landmark %}, {{ addr.landmark }}{% endif %}</p>
+                                    <p class="addr-location">{{ addr.city }}, {{ addr.state }} - {{ addr.pincode }}</p>
+                                    <div class="addr-contact">
+                                        <i class="fas fa-phone-alt text-primary"></i>
+                                        <span>{{ addr.mobile }}</span>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
 
-            <div class="col-12 d-md-none">
-                <div class="card p-3 shadow-sm border-0 mb-4">
-                     <h4 class="fw-bold mb-3 fs-5">3. Payment</h4>
-                     <div class="d-grid">
-                        <button type="button" id="rzp-button-mobile" class="btn btn-primary btn-lg py-3 fw-bold d-flex align-items-center justify-content-center">
-                            <img src="https://razorpay.com/favicon.png" width="25" class="me-2"/>Pay ₹{{ grand_total }}
-                        </button>
+            <div class="col-12 col-lg-5">
+                <div class="custom-sticky">
+                    <div class="card p-3 p-md-4 shadow-sm border-0 payment-card">
+                        <h4 class="fw-bold mb-3 fs-5">3. Payment Summary</h4>
+                        <hr />
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Subtotal</span>
+                            <span>₹{{ grand_total }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Shipping</span>
+                            <span class="text-success">FREE</span>
+                        </div>
+                        <hr />
+                        <div class="d-flex justify-content-between h5 fw-bold text-dark mt-3">
+                            <span>Total Amount</span>
+                            <span class="text-primary">₹{{ grand_total }}</span>
+                        </div>
+                        
+                        <div class="d-grid mt-4">
+                            <button type="button" id="rzp-button1" class="btn btn-primary btn-lg py-3 fw-bold d-flex align-items-center justify-content-center">
+                                <img src="https://razorpay.com/favicon.png" width="25" class="me-2"/>Pay ₹{{ grand_total }}
+                            </button>
+                        </div>
+                        
+                        <div class="text-center mt-3">
+                            <small class="text-muted"><i class="fas fa-shield-alt"></i> 100% Secure Payments</small>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -101,7 +97,6 @@
         </div>
     </form>
 </div>
-
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 

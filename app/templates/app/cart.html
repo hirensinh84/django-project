@@ -17,10 +17,10 @@
                 {% for item in product %}
                 <div class="card shadow-sm border-0 mb-3 p-3">
                     <div class="d-flex align-items-center">
-                        <img src="{{ item.product.image.url }}" width="80" class="rounded shadow-sm me-3">
+                        <img src="{{ item.product.image.url }}" width="80" class="rounded shadow-sm pe-2">
                         <div class="flex-grow-1">
                             <h6 class="fw-bold mb-1">{{ item.product.name }}</h6>
-                            <p class="text-muted small mb-2">Price: ₹{{ item.product.price }}</p>
+                            <p class="text-muted small mb-2 ">Price: ₹{{ item.product.price }}</p>
                             
                             <div class="d-flex align-items-center justify-content-between">
                                 <div class="qty-container d-flex align-items-center bg-light rounded-pill px-2">
@@ -31,8 +31,8 @@
                                 <span class="fw-bold text-primary">₹{{ item.total_product_price }}</span>
                             </div>
                         </div>
-                        <a href="{% url 'remove_cart_item' item.id %}" class="text-danger ms-2">
-                            <i class="fas fa-trash-alt"></i>
+                        <a href="{% url 'remove_cart_item' item.id %}" class="text-danger  ">
+                            <i class="fas fa-trash-alt remo"></i>
                         </a>
                     </div>
                 </div>

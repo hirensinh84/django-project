@@ -30,6 +30,12 @@
     .btn-lg {
         font-size: 1rem;
     }
+    .remo{
+       padding-right: 5px;
+    }
+    .fa-trash-alt {
+        font-size: 1.1rem;
+    }
 }
 
 /* Custom shadow for images */
